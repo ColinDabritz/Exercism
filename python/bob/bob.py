@@ -71,7 +71,7 @@ def is_anything_else(phrase):
         precedence issues
     note order matters and is intentional
 """
-RESPONSE_MAP = [
+RESPONSE_RULES = [
     (is_yelling, 'Woah, chill out!'),
     (is_question, 'Sure.'),
     (is_nothing, 'Fine. Be that way!'),
