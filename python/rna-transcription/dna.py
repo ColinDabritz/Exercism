@@ -1,5 +1,11 @@
 class DNA(object):
-    '''Represents a strand of DNA'''
+    '''Represents a strand of DNA
+
+    Example:
+    >>> sequence = DNA("ATCG")
+    >>> sequence.to_rna()
+    'AUCG'
+    '''
 
     def __init__(self, strand_nucleotide_sequence):
         '''creates DNA for provided base code
@@ -8,7 +14,7 @@ class DNA(object):
         representing the coding sequence
         (not the transcription sequence)
         '''
-        self.strand = nucleotide_sequence
+        self.strand = strand_nucleotide_sequence
 
     def to_rna(self):
         '''transcribes the DNA coding sequence into RNA form
@@ -19,3 +25,4 @@ class DNA(object):
         T = U
         '''
         return self.strand.replace('T','U')
+
