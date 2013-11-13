@@ -14,7 +14,7 @@ http://www.python.org/dev/peps/pep-0008/
 #  due to precedence issues
 
 # class handling 'Bob' phrases
-class Bob:
+class Bob(object):
     # redirected because this has no
     #  reason to be an instance method
     #  structure forced by tests
