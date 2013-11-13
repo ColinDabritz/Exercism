@@ -9,7 +9,7 @@ The goal was to remove all if/loop structures.
 http://www.python.org/dev/peps/pep-0008/
 """
 
-# note the RESPONSE_MAP below the functions
+# note the RESPONSE_RULES below the functions
 #  is important context. it must be below
 #  due to precedence issues
 
