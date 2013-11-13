@@ -30,7 +30,7 @@ def hey(phrase):
     """ processes a 'Bob' phrase, giving the appropriate response
     """
     # get the first response that passes the test for the phrase, in order
-    return (response for (test,response) in RESPONSE_MAP if test(phrase)).next()
+    return (response for (test,response) in RESPONSE_RULES if test(phrase)).next()
 
 
 
@@ -46,9 +46,7 @@ def is_yelling(phrase):
         yelling means all caps
         (and has characters that change case)
     """
-    return (phrase == phrase.upper() # all upper case 
-    and phrase.lower() != phrase.upper() # and can change case
-    ) 
+    return phrase.isupper()
 
 
 def is_nothing(phrase):
