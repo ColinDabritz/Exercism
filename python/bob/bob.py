@@ -3,18 +3,15 @@ and poking at Python!
 I encourage all nits and brutal feedback
 My goals were a clean, simple, direct implementation
 and pep8 formatting <- ding me on this please!
+Version 2 uses more advanced functionality
+in the form of list comprehesions. The goal was to
+remove all if/loop structures.
 http://www.python.org/dev/peps/pep-0008/
-I may refactor this to avoid the if statements
-I have experience in other languages, so that may
-leak through!
 """
 
-# bob responses to particular types of phrases
-YELLING_RESPONSE   = 'Woah, chill out!'
-QUESTION_RESPONSE  = 'Sure.'
-NOTHING_RESPONSE   = 'Fine. Be that way!'
-ALL_OTHER_RESPONSE = 'Whatever.' # default response
-
+# note the RESPONSE_MAP below the functions
+#  is important context. it must be below
+#  due to precedence issues
 
 # class handling 'Bob' phrases
 class Bob:
@@ -27,18 +24,9 @@ class Bob:
 
 # processes a 'Bob' phrase, giving the appropriate response
 def hey(phrase):
-
-    # note yelling has precedence over other responses
-    if is_yelling(phrase): 
-        return YELLING_RESPONSE
-
-    if is_question(phrase):
-        return QUESTION_RESPONSE
-
-    if is_nothing(phrase):
-        return NOTHING_RESPONSE
-
-    return ALL_OTHER_RESPONSE # default response
+    valid_responses = [response for (test,response) in RESPONSE_MAP if test(phrase)]
+    first_valid_response = valid_responses[0]
+    return first_valid_response
 
 
 # determines if a particular phrase counts as a question
@@ -64,3 +52,16 @@ def is_nothing(phrase):
     # "For sequences, (strings, lists, tuples), 
     #   use the fact that empty sequences are false."
     return not phrase.strip() # strip whitespace and test for empty
+
+# matches ANY phrase
+def is_anything_else(phrase):
+    return True
+
+# note this is below functions due to precedence issues
+# note order matters and is intentional
+RESPONSE_MAP = [
+    (is_yelling, 'Woah, chill out!'),
+    (is_question, 'Sure.'),
+    (is_nothing, 'Fine. Be that way!'),
+    (is_anything_else, 'Whatever.')
+]
