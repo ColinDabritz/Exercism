@@ -17,8 +17,8 @@ class Phrase(object):
         # translate removes punctuation only, normalizes to lower case
         normalized_words = [self.normalize_word(w) for w in words]
 
-        # removes empty strings after stripping punctuation
-        filtered_words = [w for w in normalized_words if w]
+        # removes empty strings
+        filtered_words = filter(None, normalized_words)
 
         # sets up default dictionary, so all entries are 0
         word_counts = collections.defaultdict(int) #{}
