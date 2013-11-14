@@ -1,4 +1,5 @@
 import string
+import collections
 
 class Phrase(object):
     """Provides word count stats for a phrase"""
@@ -10,7 +11,8 @@ class Phrase(object):
     def word_count(self):
         """Generates word counts for words (lower case, no punctuation)"""
 
-        words = self.phrase.split() # split words on default word boundaries
+        # split words on default word boundaries for words list
+        words = self.phrase.split() 
 
         # translate removes punctuation only, normalizes to lower case
         normalized_words = [self.normalize_word(w) for w in words]
@@ -18,11 +20,19 @@ class Phrase(object):
         # removes empty strings after stripping punctuation
         filtered_words = [w for w in normalized_words if w]
 
-        # turn words into counted words by zero default and increment
-        result = {}
-        for word in filtered_words:
-            result[word] = result.get(word,0)+1
-        return result
+        # sets up default dictionary, so all entries are 0
+        word_counts = collections.defaultdict(int) #{}
+
+        # define word counting function for use in reduce
+        def count_word(dictionary, word):
+            dictionary[word] = dictionary[word] + 1
+            return dictionary
+
+        # count words into dictionary from word list
+        reduce(count_word, filtered_words, word_counts)
+
+        return word_counts
+
 
     def normalize_word(self, word):
         """Strips the punctuation from string"""
