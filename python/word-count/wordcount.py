@@ -11,30 +11,16 @@ class Phrase(object):
     def word_count(self):
         """Generates word counts for words (lower case, no punctuation)"""
 
-        # split words on default word boundaries for words list
         words = self.phrase.split() 
 
-        # translate removes punctuation only, normalizes to lower case
-        normalized_words = [self.normalize_word(w) for w in words]
+        normalized_words = [normalize_word(w) for w in words]
 
-        # removes empty strings
-        filtered_words = filter(None, normalized_words)
+        non_empty_words = filter(None, normalized_words)
 
-        # sets up default dictionary, so all entries are 0
-        word_counts = collections.defaultdict(int)
-
-        # define word counting function for use in reduce
-        def count_word(dictionary, word):
-            dictionary[word] = dictionary[word] + 1
-            return dictionary
-
-        # count words into dictionary from word list
-        reduce(count_word, filtered_words, word_counts)
-
-        return word_counts
+        return collections.Counter(non_empty_words)
 
 
-    def normalize_word(self, word):
-        """Strips the punctuation from string"""
-        # translates via 'None' (no change), provides punctuation for deletion
-        return word.translate(None, string.punctuation).lower()
+def normalize_word(word):
+    """Normalize word for the purpose of standardized counting"""
+    return string.join([char for char in word.lower() 
+                        if char not in string.punctuation],'')
