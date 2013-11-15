@@ -21,7 +21,7 @@ class Phrase(object):
         filtered_words = filter(None, normalized_words)
 
         # sets up default dictionary, so all entries are 0
-        word_counts = collections.defaultdict(int) #{}
+        word_counts = collections.defaultdict(int)
 
         # define word counting function for use in reduce
         def count_word(dictionary, word):
