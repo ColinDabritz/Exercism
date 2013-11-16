@@ -6,11 +6,16 @@ class Anagram(object):
         self.word = word
 
     def match(self, words):
-        return filter(self.is_anagram, words)
+        return filter(self.is_match, words)
+
+    def is_match(self, word):
+        return self.is_different(word) and self.is_anagram(word)
+
+    def is_different(self, word):
+        return normalize(self.word) != normalize(word)
 
     def is_anagram(self, word):
-        return normalize(self.word) != normalize(word) \
-               and cannonize(self.word) == cannonize(word)
+        return cannonize(self.word) == cannonize(word)
 
 def normalize(word):
     """for word comparisons"""

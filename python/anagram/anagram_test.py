@@ -1,3 +1,4 @@
+
 try:
     from anagram import Anagram, cannonize
 except ImportError:
@@ -107,12 +108,6 @@ class AnagramTests(unittest.TestCase):
             cannonize("abcdef"))
 
 
-    def test_is_anagram_no_match_to_self(self):
-        self.assertFalse(Anagram("word").is_anagram("word"))
-        self.assertFalse(Anagram("Word").is_anagram("word"))
-        self.assertFalse(Anagram("It's").is_anagram("its"))
-
-
     def test_is_anagram_matches_jumble(self):
         self.assertTrue(Anagram("word").is_anagram("rowd"))
 
@@ -120,8 +115,35 @@ class AnagramTests(unittest.TestCase):
         self.assertTrue(Anagram("anagram").is_anagram("nag a ram"))
 
     def test_is_anagram_no_match(self):
-        self.assertFalse(Anagram("one").is_anagram("two"))
+        self.assertTrue(Anagram("word").is_anagram("word"))
+        self.assertTrue(Anagram("Word").is_anagram("word"))
+        self.assertTrue(Anagram("It's").is_anagram("its"))
 
+    def test_is_anagram_matches_self(self):
+        self.assertTrue(Anagram("word").is_anagram("word"))
+
+    def test_is_match_obvious_non_match(self):
+        self.assertFalse(Anagram("word").is_match("something"))
+
+    def test_is_match_normalization_non_match(self):
+        self.assertFalse(Anagram("It's").is_match("its"))
+
+    def test_is_match_obvious_match(self):
+        self.assertTrue(Anagram("word").is_match("drow"))
+
+    def test_is_match_no_match_to_self(self):
+        self.assertFalse(Anagram("word").is_match("word"))
+        self.assertFalse(Anagram("Word").is_match("word"))
+        self.assertFalse(Anagram("It's").is_match("its"))
+
+    def test_is_different_non_differences(self):
+        self.assertFalse(Anagram("word").is_different("word"))
+        self.assertFalse(Anagram("Word").is_different("word"))
+        self.assertFalse(Anagram("It's").is_different("its"))
+
+    def test_is_different_small_differences(self):
+        self.assertTrue(Anagram("word").is_different("dwor"))
+        self.assertTrue(Anagram("aab").is_different("abc"))
 
 if __name__ == '__main__':
     unittest.main()
