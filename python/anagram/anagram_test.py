@@ -109,6 +109,9 @@ class AnagramTests(unittest.TestCase):
 
     def test_is_anagram_no_match_to_self(self):
         self.assertFalse(Anagram("word").is_anagram("word"))
+        self.assertFalse(Anagram("Word").is_anagram("word"))
+        self.assertFalse(Anagram("It's").is_anagram("its"))
+
 
     def test_is_anagram_matches_jumble(self):
         self.assertTrue(Anagram("word").is_anagram("rowd"))

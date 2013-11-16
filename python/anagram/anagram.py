@@ -9,12 +9,15 @@ class Anagram(object):
         return filter(self.is_anagram, words)
 
     def is_anagram(self, word):
-        return self.word != word \
+        return normalize(self.word) != normalize(word) \
                and cannonize(self.word) == cannonize(word)
+
+def normalize(word):
+    """for word comparisons"""
+    return string.join([char for char in word.lower() 
+                       if char not in string.punctuation
+                       and char not in string.whitespace])
 
 def cannonize(word):
     """for anagram comparisons"""
-    matchable_chars = [char for char in word.lower() 
-                       if char not in string.punctuation
-                       and char not in string.whitespace]
-    return string.join(sorted(matchable_chars),'')
+    return string.join(sorted(normalize(word)),'')
