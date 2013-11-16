@@ -9,15 +9,16 @@ class Phrase(object):
         self.phrase = phrase
 
     def word_count(self):
-        """Generates word counts for words (lower case, no punctuation)"""
+        """Generates word counts for normalized words"""
+        return collections.Counter(self.countable_words)
 
-        words = self.phrase.split() 
-
-        normalized_words = [normalize_word(w) for w in words]
-
+    @property
+    def countable_words(self):
+        """the words in the phrase in countable form"""
+        base_words = self.phrase.split();
+        normalized_words = [normalize_word(w) for w in base_words]
         non_empty_words = filter(None, normalized_words)
-
-        return collections.Counter(non_empty_words)
+        return non_empty_words
 
 
 def normalize_word(word):
