@@ -5,7 +5,6 @@ class Phrase(object):
     """Provides word count stats for a phrase"""
 
     def __init__(self, phrase):
-        """Sets the phrase"""
         self.phrase = phrase
 
     def word_count(self):
