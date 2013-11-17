@@ -13,14 +13,11 @@ class Phrase(object):
 
     @property
     def countable_words(self):
-        """the words in the phrase in countable form"""
-        base_words = self.phrase.split();
-        normalized_words = [normalize_word(w) for w in base_words]
-        non_empty_words = filter(None, normalized_words)
-        return non_empty_words
+        """The words in the phrase in countable form"""
+        return normalize(self.phrase).split();
 
 
-def normalize_word(word):
-    """Normalize word for the purpose of standardized counting"""
-    return string.join([char for char in word.lower() 
+def normalize(phrase):
+    """Normalize phrase for the purpose of standardized counting"""
+    return string.join([char for char in phrase.lower() 
                         if char not in string.punctuation],'')
