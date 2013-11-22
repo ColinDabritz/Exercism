@@ -8,6 +8,8 @@ PHONE_LEN = AREA_CODE_LEN + PREFIX_LEN + LINE_NUMBER_LEN
 
 FULL_PHONE_LEN = PHONE_LEN + len(US_CODE)
 
+INVALID_NUMBER = "0" * PHONE_LEN
+
 def parse_phone(raw_phone_string):
     '''gets a valid phone number as a string of digits
         (or zeroes if invalid)'''
@@ -18,8 +20,8 @@ def parse_phone(raw_phone_string):
     elif len(raw_digits) == FULL_PHONE_LEN \
             and raw_digits.startswith(US_CODE):
         return raw_digits[len(US_CODE):]
-    else: # invalid number
-        return "0" * PHONE_LEN
+    else:
+        return INVALID_NUMBER
 
 
 class Phone(object):
